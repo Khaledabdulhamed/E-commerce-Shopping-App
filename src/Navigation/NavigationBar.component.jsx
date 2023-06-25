@@ -1,5 +1,5 @@
 import { Fragment, useContext } from 'react';
-import {Outlet, Link} from 'react-router-dom';
+import {Outlet} from 'react-router-dom';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropDown from '../cart-dropdown/cart-dropdown.component';
 import { ReactComponent as CrwnLogo} from '../Assets/crown.svg';
@@ -13,7 +13,7 @@ function NavigationBar () {
   const {isCartOpen} = useContext(cartContext);
  
 
-  // console.log(currentUser)
+  console.log(currentUser)
     return (
       <Fragment>
         <NavigationContainer>
