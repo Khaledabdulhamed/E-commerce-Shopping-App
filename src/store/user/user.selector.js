@@ -1,0 +1,1 @@
+export const currentUserState = ((state) =>state.user.currentUser);

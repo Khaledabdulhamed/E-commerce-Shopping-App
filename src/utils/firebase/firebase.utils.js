@@ -16,7 +16,8 @@ import {getFirestore,
   collection,
   writeBatch,
   query,
-  getDocs
+  getDocs,
+  DocumentSnapshot
   } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -55,19 +56,31 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
   console.log('done')
 }
 
-export const getCategoriesAndDocuments = async () =>{
-  const collectionRef = collection(db, 'categories');
-  const q = query(collectionRef);
-  const querSnapshot = await getDocs(q);
-  const categoryMap = querSnapshot.docs.reduce((acc, docSnapshot) =>{
-    const {title, items} = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  },{})
+// export const getCategoriesAndDocuments = async () =>{
+//   const collectionRef = collection(db, 'categories');
+//   const q = query(collectionRef);
+//   const querSnapshot = await getDocs(q);
+//   return  querSnapshot.docs.map((DocumentSnapshot)=>DocumentSnapshot.data());
 
-  return categoryMap;
+
+
+  export const getCategoriesAndDocuments = async () => {
+    const collectionRef = collection(db, 'categories');
+    const q = query(collectionRef);
   
-}
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map((doc) => doc.data());
+  };
+
+//   const categoryMap = querSnapshot.docs.reduce((acc, docSnapshot) =>{
+//     const {title, items} = docSnapshot.data();
+//     acc[title.toLowerCase()] = items;
+//     return acc;
+//   },{})
+
+//   return categoryMap;
+  
+
 
 export const createUserDocumentFromAuth = async(userAuth, additionalInformation = {}) => {
   const userDocRef = doc (db,'users',userAuth.uid)
